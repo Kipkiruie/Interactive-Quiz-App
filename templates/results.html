@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <h1>Your Quiz Results</h1>
+    <ul>
+        {% for result in results %}
+            <li>Score: {{ result.score }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('quiz') }}">Take Another Quiz</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <form method="post">
+        {% for question in questions %}
+            <div>
+                <p>{{ question.question }}</p>
+                {% for option in question.options.split('|') %}
+                    <input type="radio" id="q{{ question.id }}-{{ loop.index }}" name="{{ question.id }}" value="{{ option }}">
+                    <label for="q{{ question.id }}-{{ loop.index }}">{{ option }}</label><br>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
+    <a href="{{ url_for('results') }}">View Results</a>
+</body>
+</html>
