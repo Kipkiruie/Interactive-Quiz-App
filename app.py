@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -54,4 +54,18 @@ def register():
         password = request.form['password']
         hashed_password = generate_password_hash(password, method='sha256')
         new_user = User(username=username, password=hashed_password)
-        
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Registration successful! Please log in.', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
+@app.route('/quiz', methods=['GET', 'POST'])
+def quiz():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    # Add your quiz logic here
+    return render_template('quiz.html')
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5000, debug=True)
